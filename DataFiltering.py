@@ -18,7 +18,7 @@ var tempTest = db.geoTweets.find(
 db.geoTweets.find().sort({"cr":-1})
 
 
-# pln, plt order where ln runs north to south and thus has increments of W/E
+# tln, tlt order where ln runs north to south and thus has increments of W/E
 # lower left bound is 68W, 17.5N, top right bound is 65W, 18.7N
 # from http://docs.mongodb.org/manual/reference/operator/query/geoWithin/
 var prTweets = db.geoTweets.find( 
