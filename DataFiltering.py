@@ -1,3 +1,6 @@
+# to dump
+# mongodump -d twitter -c geoTweets -q '{t: {$regex : ".*Harvard.*"}}'
+
 import pymongo
 
 # how to connect to "mongo mongo-clusterAA5/twitter"
@@ -16,7 +19,6 @@ var tempTest = db.geoTweets.find(
 
 # sort by date
 db.geoTweets.find().sort({"cr":-1})
-
 
 # tln, tlt order where ln runs north to south and thus has increments of W/E
 # lower left bound is 68W, 17.5N, top right bound is 65W, 18.7N
