@@ -6,6 +6,8 @@ mongodump -h mongo-clusterAA5 -d twitter -c geoTweets -q '{t: {$regex : ".*Harva
 
 mongodump -h mongo-clusterAA5 -d twitter -c geoTweets --query "{'cr':{\$gte: new Date(1415633400)}}"
 
+# from 1/1/14 all PR
+mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(1388534400000)}, \$or: [ { 'tln': { \$lte: -65., \$gte: -68.}, 'tlt': { \$lte: 18.7, \$gte: 17.5} }, { 'pln': { \$lte: -65., \$gte: -68.}, 'plt': { \$lte: 18.7, \$gte: 17.5} } ] }"
 
 
 { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }
