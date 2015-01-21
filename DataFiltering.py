@@ -4,9 +4,15 @@
 # to dump
 mongodump -h mongo-clusterAA5 -d twitter -c geoTweets -q '{t: {$regex : ".*Harvard.*"}}'
 
-mongodump -h mongo-clusterAA5 -d twitter -c geoTweets --query "{'cr':{\$gte: new Date(1415633400)}}"
+mongodump -h mongo-clusterAA5 -d twitter -c geoTweets --query "{'cr':{\$gte: new Date(1415633400000)}}"
 
-# from 1/1/14 all PR
+mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'tln': { \$lte: -65., \$gte: -68.}, 'tlt': { \$lte: 18.7, \$gte: 17.5}}"
+
+
+# no plt locations
+mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(1388534400000)}, 'tln': { \$lte: -65., \$gte: -68.}, 'tlt': { \$lte: 18.7, \$gte: 17.5}}"
+
+# from 1/1/14 all PR both tlt and plt
 mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(1388534400000)}, \$or: [ { 'tln': { \$lte: -65., \$gte: -68.}, 'tlt': { \$lte: 18.7, \$gte: 17.5} }, { 'pln': { \$lte: -65., \$gte: -68.}, 'plt': { \$lte: 18.7, \$gte: 17.5} } ] }"
 
 
@@ -15,6 +21,8 @@ mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(
 
 { $or: [ { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }, { pln: { $lte: -65., $gte: -68.}, plt: { $lte: 18.7, $gte: 17.5} } ] }
 
+
+{cr : {$gte: new Date(1415633400000)}, tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5}}
 
 {cr : {$gte: new Date(1415633400000)}, $or: [ { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }, { pln: { $lte: -65., $gte: -68.}, plt: { $lte: 18.7, $gte: 17.5} } ] }
 
@@ -25,6 +33,11 @@ db.geoTweets.find({ tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.
 db.geoTweets.find({cr : {$gte: new Date(1415633400000)}, $or: [ { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }, { pln: { $lte: -65., $gte: -68.}, plt: { $lte: 18.7, $gte: 17.5} } ] }
 ).pretty()
 
+db.geoTweets.find({tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5}}).explain()
+
+
+db.geoTweets.find({cr : {$gte: new Date(1415633400000)}, $or: [ { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }, { pln: { $lte: -65., $gte: -68.}, plt: { $lte: 18.7, $gte: 17.5} } ] }
+).explain()
 
 import pymongo
 
@@ -72,7 +85,4 @@ var prTweets = db.geoTweets.find(
             ]
         }
     }
-)
-
-
-# TODO:     create a 2dsphere index as per http://docs.mongodb.org/manual/tutorial/build-a-2dsphere-index/
+)   
