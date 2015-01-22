@@ -17,6 +17,16 @@ mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(
 
 mongorestore dump/twitter # once the dump is in the mongo bin folder in program files
 
+# 1/1/14, Wednesday
+# 1388534400000
+
+# 1/5/14, Sunday
+# 1388880000000
+
+# each week is
+# 604800000
+
+
 
 { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }
 { pln: { $lte: -65., $gte: -68.}, plt: { $lte: 18.7, $gte: 17.5} }
