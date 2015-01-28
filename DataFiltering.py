@@ -15,6 +15,11 @@ mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(
 # from 1/1/14 all PR both tlt and plt
 mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(1388534400000)}, \$or: [ { 'tln': { \$lte: -65., \$gte: -68.}, 'tlt': { \$lte: 18.7, \$gte: 17.5} }, { 'pln': { \$lte: -65., \$gte: -68.}, 'plt': { \$lte: 18.7, \$gte: 17.5} } ] }"
 
+# dump the local one for Chikungunya keywords only
+
+mongodump -o "C:/dump1" -d twitter -c geoTweets --query "{'t' : /\\\bChikungunya\\\b/i}"
+
+
 mongorestore dump/twitter # once the dump is in the mongo bin folder in program files
 
 # 1/1/14, Wednesday
