@@ -7,46 +7,29 @@ connection = pymongo.MongoClient()
 
 db = connection.twitter
 
-keywords = ['Chikungunya', 'Chikv', 'rash', 'high fever', 'joint pain', 'nausea', 'vomit', 'photophobia', 'arthralgia', 'Dengue', 'flu', 'sick', 'cough']
-allValues = []
+myFile = open('visData.txt', 'w')
 
-myFile = open('analysis.txt', 'w')
+keyRegex = re.compile("\\b" + 'Chikungunya' + "\\b", re.IGNORECASE)
 
-# Starting with Sunday, 1/5/14 @ Date(1388880000000) until week of 1/10/2015 also Sunday
-# check the dates given increments of maybe a week? using date manipulation
-weekTime = 604800
-numWeeks = 54
-datenum = 1388880000
-
-# compute
-for week in xrange(numWeeks):
-	lowDate = datetime.datetime.fromtimestamp(datenum)
-	datenum = datenum + weekTime
-	highDate = datetime.datetime.fromtimestamp(datenum)
-	values = []
-
-	for myKeyword in keywords:
-		keyRegex = re.compile("\\b" + myKeyword + "\\b", re.IGNORECASE)
-		values.append(db.geoTweets.find({'cr' : {'$gte' : lowDate, '$lte' : highDate}, 't' : keyRegex}).count())
-
-	allValues.append(values)
+counter = 0
+# printouts to file
+for tweet in db.geoTweets.find({'t': keyRegex, 'tlt' : {'$exists' : True}, 'tln' : {'$exists' : True}})[:]:
+	counter += 1
+	print counter
+	myFile.write(str(tweet['cr']))
+	myFile.write("\t")
+	myFile.write(str(tweet['tlt']))
+	myFile.write("\t")
+	myFile.write(str(tweet['tln']))
+	myFile.write("\n")
 
 # printouts to file
-
-# headers
-myFile.write("\t")
-for myKeyword in keywords:
-	myFile.write(myKeyword + "\t")
-myFile.write("\n")
-
-# reset values
-datenum = 1388880000
-
-for week in xrange(numWeeks):
-	lowDate = datetime.datetime.fromtimestamp(datenum)
-	datenum = datenum + weekTime
-	myFile.write(str(lowDate) + "\t")
-
-	for idx in xrange(len(allValues[week])):
-		myFile.write(str(allValues[week][idx]) + "\t")
+for tweet in db.geoTweets.find({'t': keyRegex, 'tlt' : {'$exists' : False}, 'tln' : {'$exists' : False}, 'plt' : {'$exists' : True}, 'pln' : {'$exists' : True}})[:]:
+	counter += 1
+	print counter
+	myFile.write(str(tweet['cr']))
+	myFile.write("\t")
+	myFile.write(str(tweet['plt']))
+	myFile.write("\t")
+	myFile.write(str(tweet['pln']))
 	myFile.write("\n")
