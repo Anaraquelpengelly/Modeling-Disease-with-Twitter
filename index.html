@@ -1,18 +1,38 @@
+<!--
+  Index.html for 
+  referenced from tutorial 
+  http://bost.ocks.org/mike/map/
+-->
+
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
+<head>
+    <title>Chikungunya Tweets in PR</title>
+    <h1>Tweets Mentioning "Chikungunya" in Puerto Rico 2014-Present</h1>
+</head>
+<div id="header1">Lower Date Bound:</div>
+<div id="label1"></div>
+<div id="slider1"></div>
+<br>
+<div id="header2">Upper Date Bound:</div>
+<div id="label2"></div>
+<div id="slider2"></div>
 
-/* CSS goes here. */
-
-</style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script>
+var parserFull = d3.time.format('%Y-%m-%d %X').parse;
+var parserDate = d3.time.format('%Y-%m-%d').parse;
+// constants
+var width = 960;
+var height = 1160;
 
-var width = 960,
-    height = 1160;
-
+// svg body
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -20,22 +40,26 @@ var svg = d3.select("body").append("svg")
 d3.json("pr.json", function(error, pr) {
     if (error) return console.error(error);
 
+    // load subunits data from gdal, using code PRI
     var subunits = topojson.feature(pr, pr.objects.subunits);
     
+    // set up mac with tweaked numbers
     var projection = d3.geo.mercator()
         .rotate([66.1, 18.4])
         .scale(10000)
-        .translate([width / 2, 6.2*height]);
+        .translate([0.58 * width, 6.1*height]);
 
-    /*
-    var projection = d3.geo.albers()
-        .center([66.1, 18.4])
-        .rotate([4.4, 0])
-        .parallels([50, 60])
-        .scale(6000)
-        .translate([width / 2, height / 2]);
-    */
+    // see my stack overflow on question
+    
+    //var projection = d3.geo.albers()
+    //    .center([66.1, 18.4])
+    //    .rotate([4.4, 0])
+    //    .parallels([50, 60])
+    //    .scale(6000)
+    //    .translate([width / 2, height / 2]);
+    
 
+    // get path and draw the polygon
     var path = d3.geo.path()
         .projection(projection);
 
@@ -43,19 +67,22 @@ d3.json("pr.json", function(error, pr) {
         .datum(subunits)
         .attr("d", path);
 
-
+    // fill the country polygon
     svg.selectAll(".subunit")
         .data(topojson.feature(pr, pr.objects.subunits).features)
       .enter().append("path")
         .attr("class", function(d) { return "subunit " + d.id; })
         .attr("d", path)
+        // like my color choice here? haha CDC
         .style("fill", '#CDC')
 
+    // place the city circles using code PR from the gdal
     svg.append("path")
         .datum(topojson.feature(pr, pr.objects.places))
         .attr("d", path)
         .attr("class", "place");
 
+    // place city names
     svg.selectAll(".place-label")
         .data(topojson.feature(pr, pr.objects.places).features)
       .enter().append("text")
@@ -65,6 +92,7 @@ d3.json("pr.json", function(error, pr) {
         .attr("dx", ".5em")
         .text(function(d) { return d.properties.name; });
 
+    // place country name
     svg.selectAll(".subunit-label")
         .data(topojson.feature(pr, pr.objects.subunits).features)
       .enter().append("text")
@@ -75,8 +103,106 @@ d3.json("pr.json", function(error, pr) {
         .text(function(d) { return d.properties.name; })
         .style("font-size", "14pt")
         .style("fill", "#FFFFFF");
-        
 
+    // get data for the markers to place
+    d3.tsv("visData.txt", function(error, myData) {
+        if (error) return console.error(error);
+
+        // parse from format of output 
+        myData.forEach(function(d) {
+            d.date = parserFull(d.date);
+            d.lat = +d.lat;
+            d.lon = +d.lon;
+
+            var coordinates = projection([d.lon, d.lat]);
+            svg.append("circle")
+                .attr("cx", coordinates[0])
+                .attr("cy", coordinates[1])
+                .style("fill", "#FF0000")
+                .style("fill-opacity", 0.2)
+                .attr("r", 2)
+                .attr("class", "marker");
+            });
+        setupSlider1(myData);
+    });
     
+    // function to update the markers
+    function updateVis (myData, lowDate, highDate) {
+
+        console.log(lowDate);
+        console.log(highDate);
+        // clear current markers
+        d3.selectAll(".marker").remove();
+
+        // go through and replace markers which come before the date
+        myData.forEach(function(d) {
+            // temp highdate + 7 for now
+            if (d.date >= lowDate && d.date <= highDate) {
+                var coordinates = projection([d.lon, d.lat]);
+                svg.append("circle")
+                    .attr("cx", coordinates[0])
+                    .attr("cy", coordinates[1])
+                    .style("fill", "#FF0000")
+                    .style("fill-opacity", 0.2)
+                    .attr("r", 2);
+            }
+        });
+    };
+    
+    // date info setup
+    startDate = parserDate("2014-4-22")
+    // 4/22/2014 to 1/12/2015 array for labels
+    var numDays = 266;
+    var labelArr = new Array("")
+    for (var i = 1; i <= numDays; i++) {
+        // place into string form like YYYY-MM-DD
+        var tempString = startDate.getFullYear() + "-" + String(startDate.getMonth()+1) + "-" + startDate.getDate();
+        // add to label array
+        labelArr.push(tempString);
+        // increment by one date
+        startDate.setDate(startDate.getDate() + 1);
+    }
+
+
+    // create slider and interactions
+    function setupSlider1(myData) {
+        $("#slider1").slider({
+            value: 1,
+            min: 1,
+            max: numDays,
+            step: 1,
+            slide: function (event, ui) {
+                $("#days1").val(ui.value);
+                $("#label1").html(labelArr[ui.value]);
+                // fix here
+                updateVis(myData, parserDate(labelArr[ui.value]), parserDate(labelArr[$("#slider2").slider("value")]));
+            }
+        });
+        $("#days1").val($("#slider1").slider("value"));
+        $("#label1").html(labelArr[$("#slider1").slider("value")]);
+        setupSlider2(myData);
+    } 
+
+    // create slider and interactions
+    function setupSlider2(myData) {
+        $("#slider2").slider({
+            value: numDays,
+            min: 1,
+            max: numDays,
+            step: 1,
+            slide: function (event, ui) {
+                $("#days2").val(ui.value);
+                $("#label2").html(labelArr[ui.value]);
+                // fix here
+                updateVis(myData, parserDate(labelArr[$("#slider1").slider("value")]), parserDate(labelArr[ui.value]));
+            }
+        });
+        $("#days2").val($("#slider2").slider("value"));
+        $("#label2").html(labelArr[$("#slider2").slider("value")]);
+    } 
+
+
 });
+
+
 </script>
