@@ -17,6 +17,9 @@
 <div id="header2">Upper Date Bound:</div>
 <div id="label2"></div>
 <div id="slider2"></div>
+<br>
+<!-- default text -->
+<div id='summary'>There are 1452 tweets in this date range.</div>
 
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -128,12 +131,9 @@ d3.json("pr.json", function(error, pr) {
     
     // function to update the markers
     function updateVis (myData, lowDate, highDate) {
-
-        console.log(lowDate);
-        console.log(highDate);
         // clear current markers
         d3.selectAll(".marker").remove();
-
+        var counter = 0;
         // go through and replace markers which come before the date
         myData.forEach(function(d) {
             // temp highdate + 7 for now
@@ -146,6 +146,16 @@ d3.json("pr.json", function(error, pr) {
                     .style("fill-opacity", 0.2)
                     .attr("r", 2)
                     .attr("class", "marker");
+                counter++;
+            }
+            if (counter == 0) {
+                $("#summary").text("There are no tweets in this date range.");
+            }
+            else if (counter == 1) {
+                $("#summary").text("There is one tweet in this date range.");
+            }
+            else {
+                $("#summary").text("There are " + counter + " tweets in this date range.");
             }
         });
     };
@@ -153,7 +163,7 @@ d3.json("pr.json", function(error, pr) {
     // date info setup
     startDate = parserDate("2014-4-22")
     // 4/22/2014 to 1/12/2015 array for labels
-    var numDays = 266;
+    var numDays = 270;
     var labelArr = new Array("")
     for (var i = 1; i <= numDays; i++) {
         // place into string form like YYYY-MM-DD
@@ -175,7 +185,6 @@ d3.json("pr.json", function(error, pr) {
             slide: function (event, ui) {
                 $("#days1").val(ui.value);
                 $("#label1").html(labelArr[ui.value]);
-                // fix here
                 updateVis(myData, parserDate(labelArr[ui.value]), parserDate(labelArr[$("#slider2").slider("value")]));
             }
         });
@@ -194,7 +203,6 @@ d3.json("pr.json", function(error, pr) {
             slide: function (event, ui) {
                 $("#days2").val(ui.value);
                 $("#label2").html(labelArr[ui.value]);
-                // fix here
                 updateVis(myData, parserDate(labelArr[$("#slider1").slider("value")]), parserDate(labelArr[ui.value]));
             }
         });
