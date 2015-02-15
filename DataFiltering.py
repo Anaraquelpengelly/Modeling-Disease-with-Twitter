@@ -73,6 +73,12 @@ db.geoTweets.find(
     }
 ).pretty()
 
+db.geoTweets.find(
+    {
+        t : '#STOP'
+    }
+).pretty()
+
 # find by date
 
 db.geoTweets.find({
