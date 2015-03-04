@@ -108,7 +108,7 @@ d3.json("pr.json", function(error, pr) {
         .style("fill", "#FFFFFF");
 
     // get data for the markers to place
-    d3.tsv("visData.txt", function(error, myData) {
+    d3.tsv("visDataNoProfileGPS.txt", function(error, myData) {
         if (error) return console.error(error);
 
         // parse from format of output 
