@@ -19,7 +19,7 @@
 <div id="slider2"></div>
 <br>
 <!-- default text -->
-<div id='summary'>There are 1452 tweets in this date range.</div>
+<div id='summary'>There are 1324 tweets in this date range.</div>
 
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -108,7 +108,7 @@ d3.json("pr.json", function(error, pr) {
         .style("fill", "#FFFFFF");
 
     // get data for the markers to place
-    d3.tsv("visDataNoProfileGPS.txt", function(error, myData) {
+    d3.tsv("visDataTest.txt", function(error, myData) {
         if (error) return console.error(error);
 
         // parse from format of output 
