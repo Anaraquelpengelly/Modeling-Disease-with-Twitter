@@ -7,7 +7,7 @@ connection = pymongo.MongoClient()
 
 db = connection.twitter
 
-myFile = open('totalTweets.txt', 'w')
+myFile = open('totalTltNoPltTweets.txt', 'w')
 
 # Starting with Sunday, 1/5/14 @ Date(1388880000000) until week of 1/10/2015 also Sunday
 # check the dates given increments of maybe a week? using date manipulation
@@ -23,7 +23,7 @@ for week in xrange(numWeeks):
 	datenum = datenum + weekTime
 	highDate = datetime.datetime.fromtimestamp(datenum)
 
-	myCount = db.geoTweets.find({'cr' : {'$gte' : lowDate, '$lte' : highDate}}).count()
+	myCount = db.geoTweets.find({'cr' : {'$gte' : lowDate, '$lte' : highDate}, 'plt' : {'$exists' : False}, 'tlt' : {'$exists' : True} }).count()
 	allValues.append(myCount)
 
 # printouts to file
