@@ -15,7 +15,6 @@
 <div id="slider1"></div>
 <br>
 <div id="header2">Upper Date Bound:</div>
-<div id="label2"></div>
 <div id="slider2"></div>
 <br>
 <!-- default text -->
@@ -28,6 +27,7 @@
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<div id="label2"></div>
 <script>
 var parserFull = d3.time.format('%Y-%m-%d %X').parse;
 var parserDate = d3.time.format('%Y-%m-%d').parse;
@@ -123,6 +123,7 @@ d3.json("pr.json", function(error, pr) {
                 .attr("cy", coordinates[1])
                 .style("fill", "#FF0000")
                 .style("fill-opacity", 0.2)
+                // initial color for group HERE
                 .attr("r", 2)
                 .attr("class", "marker");
             });
@@ -144,6 +145,7 @@ d3.json("pr.json", function(error, pr) {
                     .attr("cy", coordinates[1])
                     .style("fill", "#FF0000")
                     .style("fill-opacity", 0.2)
+                    // adjust color for group HERE
                     .attr("r", 2)
                     .attr("class", "marker");
                 counter++;
