@@ -1,0 +1,13 @@
+Predicted	Real
+858.491728377	953
+1168.58529522	1174
+475.563575856	356
+646.435802007	762
+627.973150046	530
+837.755220745	906
+1078.63156189	1029
+751.226827788	730
+2416.08070787	2437
+1396.2561302	1380
+Self reporting sick with Chikungunya virus	Reporting others are sick with Chikungunya virus	Someone (including self) is showing symptoms. Maybe Chikungunya?	Country/City/State Case Counts	News or awareness tweet	CDC or government agency awareness	People reporting mosquito bites (no symptoms yet)	Joke or Irrelevant tweet	People who say they want Chikungunya/or wish it on others	Chikungunya mentioned but in no particular context	Chikungunya mentioned but unclear whether the person has Chikungunya	Song Related	People Who Don’t Have Chikungunya but are afraid of getting it	People Who Don't have Chikungunya	Debate over Spelling/ Comments on Pronunciation	Chikungunya Braclet	Not clear why tweet was selected	Educational 	new suspected	
+0.0	0.0	0.0	55.1406891044	65.5574926832	0.0	0.0	0.0	0.0	0.0	0.0	101.118698787	0.0	22.0061581162	0.0	181.289029729	0.0	0.0	
