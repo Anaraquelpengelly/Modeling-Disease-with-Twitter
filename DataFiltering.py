@@ -1,4 +1,5 @@
-
+# clean databases
+var mongo = db.getMongo(); mongo.getDBNames().forEach(function (dbname) { var db = mongo.getDB(dbname); db.dropDatabase(); });
 
 
 # to dump
@@ -17,10 +18,12 @@ mongodump -h mongo-A1 -d twitter -c geoTweets --query "{'cr' : {\$gte: new Date(
 
 # dump the local one for Chikungunya keywords only
 
-mongodump -o "C:/dump1" -d twitter -c geoTweets --query "{'t' : /\\\bChikungunya\\\b/i}"
+mongodump -o "C:\myDump" -d twitter -c geoTweets --query "{'t' : /\\bChikungunya\\b/i, 'tlt' : {'\$exists' : true}}"
 
+mongodump -o "C:\myDump" -d twitter -c geoTweets --query "{t : /\\b.*Chikungunya.*\\b/i, tlt : {'\$exists' : true}}"
 
-mongorestore dump/twitter # once the dump is in the mongo bin folder in program files
+mongorestore filtered/twitter --db filtered
+# once the dump is in the mongo bin folder in program files
 
 # 1/1/14, Wednesday
 # 1388534400000
@@ -43,7 +46,8 @@ mongorestore dump/twitter # once the dump is in the mongo bin folder in program 
 
 {cr : {$gte: new Date(1415633400000)}, $or: [ { tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }, { pln: { $lte: -65., $gte: -68.}, plt: { $lte: 18.7, $gte: 17.5} } ] }
 
-
+# find keyword and truth
+db.geoTweets.find({ t: /\b.*Chikungunya.*\b/i, tlt: { $exists : true} }).pretty()
 
 db.geoTweets.find({ tln: { $lte: -65., $gte: -68.}, tlt: { $lte: 18.7, $gte: 17.5} }).pretty()
 

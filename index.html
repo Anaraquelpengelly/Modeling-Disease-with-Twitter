@@ -28,7 +28,6 @@
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <h2><div id="label2"></div></h2>
 
-
 <font color = "red"><h2><div id='summary'>1324</div></h2></font>
 <script>
 var parserFull = d3.time.format('%Y-%m-%d %X').parse;
@@ -44,8 +43,6 @@ var svg = d3.select("body").append("svg")
 
 d3.json("pr.json", function(error, pr) {
     if (error) return console.error(error);
-
-    var lineData = [];
 
     // load subunits data from gdal, using code PRI
     var subunits = topojson.feature(pr, pr.objects.subunits);
@@ -130,7 +127,7 @@ d3.json("pr.json", function(error, pr) {
                 // initial color for group HERE
                 .attr("r", 2)
                 .attr("class", "marker");
-            });;
+            });
         setupSlider1(myData);
     });
     
@@ -154,6 +151,8 @@ d3.json("pr.json", function(error, pr) {
                     .attr("class", "marker");
                 counter++;
             }
+
+            
             /*
             if (counter == 0) {
                 $("#summary").text("There are no tweets in this date range.");
@@ -166,8 +165,6 @@ d3.json("pr.json", function(error, pr) {
                 $("#summary").text(counter);
             //}
         });
-        lineData.push({'x': highDate, 'y':counter})
-        
     };
     
     // date info setup
@@ -206,7 +203,7 @@ d3.json("pr.json", function(error, pr) {
     // create slider and interactions
     function setupSlider2(myData) {
         $("#slider2").slider({
-            value: 1,
+            value: numDays,
             min: 1,
             max: numDays,
             step: 1,

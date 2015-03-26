@@ -7,10 +7,12 @@ connection = pymongo.MongoClient()
 
 db = connection.twitter
 
-keywords = ['Chikungunya', '#Chikungunya', 'Chikv', 'rash', 'high fever', 'joint pain', 'nausea', 'vomit', 'photophobia', 'arthralgia', 'Dengue', 'flu', 'sick', 'cough']
+keywords = ['Chikungunya', 'Chikv', 'rash', 'high fever', 'joint pain', 'nausea', 'vomit', 'photophobia', 'arthralgia', 'Dengue', 'flu', 'sick', 'cough']
 allValues = []
 
-myFile = open('analysisPltNoTlt.txt', 'w')
+# keywords = ['Chikungunya']
+
+myFile = open('test1.txt', 'w')
 
 # Starting with Sunday, 1/5/14 @ Date(1388880000000) until week of 1/10/2015 also Sunday
 # check the dates given increments of maybe a week? using date manipulation
@@ -26,8 +28,8 @@ for week in xrange(numWeeks):
 	values = []
 
 	for myKeyword in keywords:
-		keyRegex = re.compile("\\b" + myKeyword, re.IGNORECASE)
-		values.append(db.geoTweets.find({'cr' : {'$gte' : lowDate, '$lte' : highDate}, 'plt' : {'$exists' : True}, 'tlt' : {'$exists' : False}, 't' : keyRegex}).count())
+		keyRegex = re.compile("\\b.*" + myKeyword, re.IGNORECASE)
+		values.append(db.geoTweets.find({'cr' : {'$gte' : lowDate, '$lte' : highDate}, 'tlt' : {'$exists' : True}, 't' : keyRegex}).count())
 
 	allValues.append(values)
 
