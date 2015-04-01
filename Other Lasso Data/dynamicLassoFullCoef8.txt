@@ -1,0 +1,18 @@
+Self reporting sick with Chikungunya virus	Reporting others are sick with Chikungunya virus	Someone (including self) is showing symptoms. Maybe Chikungunya?	Country/City/State Case Counts	News or awareness tweet	CDC or government agency awareness	People reporting mosquito bites (no symptoms yet)	Joke or Irrelevant tweet	People who say they want Chikungunya/or wish it on others	Chikungunya mentioned but in no particular context	Chikungunya mentioned but unclear whether the person has Chikungunya	Song Related	People Who Don’t Have Chikungunya but are afraid of getting it	People Who Don't have Chikungunya	Debate over Spelling/ Comments on Pronunciation	Chikungunya Braclet	Not clear why tweet was selected	Educational 	new suspected	
+0.0	0.0	0.0	34.6171491674	0.0	0.0	0.0	51.4954124114	0.0	0.0	43.1469829135	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	28.7148565944	94.8903374255	0.0	0.0	0.0	59.4304297211	0.0	0.0	17.2284036579	50.2533313299	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	14.0816232742	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	83.7948338085	0.0	0.0	0.0	0.0	0.0	0.0	37.6006194122	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	158.071191495	21.0990570141	0.0	0.0	58.5980626037	3.60924428831	0.0	74.5905989428	94.0524633672	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	154.969523118	21.8603364245	0.0	0.0	56.3961755207	0.0	0.0	63.8220649907	88.0602102472	0.0	0.799793955028	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	30.5680261734	37.6413454051	0.0	0.0	16.7134802325	0.0	0.0	9.01081569207	133.039446012	0.0	0.0	0.0	155.901488555	0.0	0.0	
+0.0	0.0	0.0	0.0	5.64716124147	0.0	0.0	25.7681902202	0.0	0.0	0.0	0.0	2.77168503493	0.0	0.0	193.208779986	0.0	7.83488352453	
+9.31751980054	0.0	0.0	0.0	0.0	0.0	0.0	18.9350913098	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	25.2083095776	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	6.99564935929	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+16.2166049889	0.0	0.0	0.0	34.946183392	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	48.0342613283	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	74.2386318741	215.993260097	0.0	0.0	0.0	0.0	15.8083351233	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	38.7783078023	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	23.9575783708	0.0	0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	

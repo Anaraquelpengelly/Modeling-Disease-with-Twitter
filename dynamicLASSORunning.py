@@ -13,6 +13,8 @@ start = 0
 #size = 8
 #end = start+size
 
+# DYNAMIC PREDICTIONS WITH ALL DATA
+
 # read in file
 numbersData = pd.read_csv('numbersLagged.csv', index_col = 0)
 print "data" + str(numbersData.shape)

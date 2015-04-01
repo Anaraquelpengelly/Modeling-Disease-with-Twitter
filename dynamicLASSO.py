@@ -8,6 +8,8 @@ from sklearn import cross_validation
 # column headers
 # last row is target
 
+# ROLLING WINDOW
+
 # start 6/15 as first week with data
 start = 0
 size = 8

@@ -9,11 +9,11 @@ from sklearn import cross_validation
 # last row is target
 
 # start 6/15 as first week with data
-start = 7
-end = 17
+start = 0
+end = 11
 
 # read in file
-numbersData = pd.read_csv('numbersLaggedFull.csv', index_col = 0)
+numbersData = pd.read_csv('numbersLaggedBest.csv', index_col = 0)
 print "data" + str(numbersData.shape)
 # set up dynamic prediction list
 numbersResult = []
@@ -25,12 +25,13 @@ lasso = LassoCV(cv=kf, n_jobs=-1, positive=True)
 lassofit = lasso.fit(numbersData.ix[start:end,:-1], numbersData.ix[start:end,-1])
 print lassofit.coef_
 
-for i in xrange(end-start):
+# display all predictions including in sample
+for i in xrange(start, end):
 	# predict the next
 	numbersResult.append(lassofit.predict(numbersData.ix[start+i,:-1]))
 
 #set up outfile
-outFile = open('staticLassoFullPeak.txt', 'w')
+outFile = open('phaseILasso.txt', 'w')
 
 # write headers
 outFile.write('Predicted\tReal\n')
